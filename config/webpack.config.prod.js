@@ -327,7 +327,7 @@ module.exports = {
       tslint: paths.appTsLint
     }),
     new PageGraphMLPlugin({
-      data: require('../../ga/data.json'),
+      data: require('../../mlx-ga-demo/data.json'),
       build: {
         minChunks: 4
       }
