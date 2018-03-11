@@ -39,12 +39,13 @@
     typescript "~2.5.0"
     zone.js "^0.8.20"
 
-"@mlx/webpack@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@mlx/webpack/-/webpack-0.0.6.tgz#1defeee87cb94cf4723566f20dbc0d8594289234"
+"@mlx/webpack@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@mlx/webpack/-/webpack-0.0.7.tgz#e367f3606d6f8b0df907fffdd58db6b049e87763"
   dependencies:
     "@mlx/clusterize" ""
     "@mlx/parser" ""
+    lodash.template "^4.4.0"
 
 "@types/history@*":
   version "4.6.2"
