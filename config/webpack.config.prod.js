@@ -13,7 +13,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const { PageGraphMLPlugin } = require('@mlx/webpack');
+const { MLPlugin } = require('@mlx/webpack');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -326,7 +326,7 @@ module.exports = {
       tsconfig: paths.appTsConfig,
       tslint: paths.appTsLint
     }),
-    new PageGraphMLPlugin({
+    new MLPlugin({
       data: require('../../mlx-ga-demo/data.json'),
       build: {
         minChunks: 4
