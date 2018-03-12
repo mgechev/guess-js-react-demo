@@ -326,12 +326,7 @@ module.exports = {
       tsconfig: paths.appTsConfig,
       tslint: paths.appTsLint
     }),
-    new MLPlugin({
-      data: require('../../mlx-ga-demo/data.json'),
-      build: {
-        minChunks: 4
-      }
-    })
+    new MLPlugin({ data: require('../../mlx-ga-demo/data.json') })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
