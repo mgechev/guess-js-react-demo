@@ -13,8 +13,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const { MLPlugin } = require('@mlx/webpack');
-const data = require('../data.json');
+const { GuessPlugin } = require('guess-webpack');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -327,7 +326,16 @@ module.exports = {
       tsconfig: paths.appTsConfig,
       tslint: paths.appTsLint
     }),
-    new MLPlugin({ data })
+    new GuessPlugin({
+      GA: '128035004',
+      period: {
+        startDate: new Date('2016-1-1'),
+        endDate: new Date('2018-2-24')
+      },
+      routeFormatter(r) {
+        return r.replace(/^\/app/, '');
+      }
+    })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
