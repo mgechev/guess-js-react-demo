@@ -14,6 +14,7 @@ const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { GuessPlugin } = require('guess-webpack');
+const { parseRoutes } = require('guess-parser');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -286,34 +287,34 @@ module.exports = {
     }),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
-//    new SWPrecacheWebpackPlugin({
-//      // By default, a cache-busting query parameter is appended to requests
-//      // used to populate the caches, to ensure the responses are fresh.
-//      // If a URL is already hashed by Webpack, then there is no concern
-//      // about it being stale, and the cache-busting can be skipped.
-//      dontCacheBustUrlsMatching: /\.\w{8}\./,
-//      filename: 'service-worker.js',
-//      logger(message) {
-//        if (message.indexOf('Total precache size is') === 0) {
-//          // This message occurs for every build and is a bit too noisy.
-//          return;
-//        }
-//        if (message.indexOf('Skipping static resource') === 0) {
-//          // This message obscures real errors so we ignore it.
-//          // https://github.com/facebookincubator/create-react-app/issues/2612
-//          return;
-//        }
-//        console.log(message);
-//      },
-//      minify: true,
-//      // For unknown URLs, fallback to the index page
-//      navigateFallback: publicUrl + '/index.html',
-//      // Ignores URLs starting from /__ (useful for Firebase):
-//      // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
-//      navigateFallbackWhitelist: [/^(?!\/__).*/],
-//      // Don't precache sourcemaps (they're large) and build asset manifest:
-//      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
-//    }),
+    //    new SWPrecacheWebpackPlugin({
+    //      // By default, a cache-busting query parameter is appended to requests
+    //      // used to populate the caches, to ensure the responses are fresh.
+    //      // If a URL is already hashed by Webpack, then there is no concern
+    //      // about it being stale, and the cache-busting can be skipped.
+    //      dontCacheBustUrlsMatching: /\.\w{8}\./,
+    //      filename: 'service-worker.js',
+    //      logger(message) {
+    //        if (message.indexOf('Total precache size is') === 0) {
+    //          // This message occurs for every build and is a bit too noisy.
+    //          return;
+    //        }
+    //        if (message.indexOf('Skipping static resource') === 0) {
+    //          // This message obscures real errors so we ignore it.
+    //          // https://github.com/facebookincubator/create-react-app/issues/2612
+    //          return;
+    //        }
+    //        console.log(message);
+    //      },
+    //      minify: true,
+    //      // For unknown URLs, fallback to the index page
+    //      navigateFallback: publicUrl + '/index.html',
+    //      // Ignores URLs starting from /__ (useful for Firebase):
+    //      // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
+    //      navigateFallbackWhitelist: [/^(?!\/__).*/],
+    //      // Don't precache sourcemaps (they're large) and build asset manifest:
+    //      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+    //    }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical
     // solution that requires the user to opt into importing specific locales.
@@ -331,6 +332,12 @@ module.exports = {
       period: {
         startDate: new Date('2016-1-1'),
         endDate: new Date('2018-2-24')
+      },
+      routeProvider() {
+        return parseRoutes('.');
+      },
+      runtime: {
+        delegate: false
       },
       routeFormatter(r) {
         return r.replace(/^\/app/, '');
